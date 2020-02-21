@@ -1,0 +1,46 @@
+.App {
+  color: white;
+  background: linear-gradient(180deg,#297af9,#333fb7);
+  margin: 1.5em auto 1.5em auto;
+  border-radius: 15px;
+  padding-bottom: 2em;
+}
+
+.temperature {
+  font-size: 7em;
+  font-weight: 600;
+
+  sup {
+    vertical-align: baseline;
+    position: relative;
+    top: -40%;
+    font-size: 30%;
+  }
+}
+
+.current-location {
+  margin-top: 1em;
+}
+
+.current-weather{
+  margin-bottom: -2.5em;
+  margin-top: 5vh;
+  font-weight: 600;
+}
+
+.current-temperature {
+  margin-bottom: 3em;
+}
+
+.current-date {
+  color: white;
+  opacity: 0.75;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.pin-icon {
+  filter: invert(1);
+  width: 1em;
+  cursor: pointer;
+}
