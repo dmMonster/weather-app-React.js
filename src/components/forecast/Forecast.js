@@ -8,8 +8,6 @@ class Forecast extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            forecastHourLeft: 0,
-            forecastDayLeft: 20,
             currentSlide: 0 //0 -forecast hour 1-forecast day
         };
     }
@@ -22,39 +20,40 @@ class Forecast extends Component {
 
     mouseUp = () => {
         document.querySelector(".forecast-hour").classList.add("forecast-anim");
-        if (this.state.forecastHourLeft > -30 || (this.state.forecastHourLeft > -80 && this.state.currentSlide === 1)) {
-            this.setState({forecastHourLeft: 0});
+        let forecastHourMargin = parseInt(document.querySelector(".forecast-hour").style.marginLeft);
+        console.log(forecastHourMargin);
+        if (forecastHourMargin > -30 || (forecastHourMargin > -80 && this.state.currentSlide === 1)) {
+            this.setSlideMargin(0);
             this.setState({currentSlide: 0});
         } else {
-            this.setState({forecastHourLeft: -120});
+            this.setSlideMargin(-120);
             this.setState({currentSlide: 1});
         }
         document.removeEventListener("mousemove", this.mouseSpy);
     };
 
     mouseSpy = (e) => {
-        if(this.state.forecastHourLeft < 40 && this.state.forecastHourLeft > -140) {
-            this.setState({forecastHourLeft: this.state.forecastHourLeft + e.movementX/3});
+        let marginLeft;
+        let forecastHourSlide = document.querySelector(".forecast-hour").style;
+        forecastHourSlide.marginLeft ? marginLeft = forecastHourSlide.marginLeft : marginLeft = 0;
+        if (parseInt(marginLeft) < 40 && parseInt(marginLeft) > -140) {
+            forecastHourSlide.marginLeft = parseInt(marginLeft) + parseInt(e.movementX / 3) + "%";
         }
     };
 
+    setSlideMargin = (marginL) => {
+        let forecastHourSlide = document.querySelector(".forecast-hour");
+        forecastHourSlide.style.marginLeft = parseInt(marginL) + "%";
+    };
+
     render() {
-
-        let forecastHour = {
-            marginLeft: this.state.forecastHourLeft + "%",
-        };
-
-        let forecastDay = {
-            marginLeft: this.state.forecastDayLeft + "%",
-        };
-
         return (
             <div className="forecast">
                 <div className="slide-dots">
                     <span>*</span><span>*</span>
                 </div>
                 <div className="forecast-wrapper" onMouseDown={this.mouseDown}>
-                    <div className="forecast-hour" style={forecastHour}>
+                    <div className="forecast-hour">
                         <div className="forecast-card p-md-3">
                             <div>18:00 1</div>
                             <div className={"weather-icon"}>
@@ -116,7 +115,7 @@ class Forecast extends Component {
                             <div className={"rain-drop"}><img src={RainDrop} alt="rain_drop"/> 7%</div>
                         </div>
                     </div>
-                    <div className="forecast-day" style={forecastDay}>
+                    <div className="forecast-day">
                         <div className="forecast-card p-md-3">
                             <div>Mon</div>
                             <div className={"weather-icon"}>
