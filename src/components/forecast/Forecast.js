@@ -2,13 +2,14 @@ import React, {Component} from 'react';
 import './Forecast.scss';
 import Skycons from 'react-skycons'
 import RainDrop from '../../icons/rain-drop.png';
+import PropTypes from 'prop-types';
 
 class Forecast extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            currentSlide: 0 //0 -forecast hour 1-forecast day
+            currentSlide: 0, //0 -forecast hour 1-forecast day
         };
     }
 
@@ -45,7 +46,62 @@ class Forecast extends Component {
         forecastHourSlide.style.marginLeft = parseInt(marginL) + "%";
     };
 
+
     render() {
+
+        let hourForecast = "";
+        if (this.props.forecast.hasOwnProperty("hourly")) {
+            let hours = 0;
+            hourForecast = this.props.forecast.hourly.data.map((item) => {
+                hours++;
+                if (hours > 5) {
+                    return "";
+                }
+                return <div className="forecast-card p-md-3" key={item.time}>
+                    <div>{new Date((item.time * 1000)).getHours()}:00</div>
+                    <div className={"weather-icon"}>
+                        <Skycons
+                            color='white'
+                            icon={item.icon.replace(/-/g, "_").toUpperCase()}
+                            autoplay={true}
+                        />
+                    </div>
+                    <div>{parseInt((item.temperature - 32) / 1.8)}&deg;</div>
+                    <div className={"rain-drop"}><img src={RainDrop} alt="rain_drop"/>
+                        {parseInt(item.precipProbability * 100)}%
+                    </div>
+                </div>
+            });
+        }
+
+        let dayForecast = "";
+        let days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        if (this.props.forecast.hasOwnProperty("daily")) {
+            let hours = 0;
+            dayForecast = this.props.forecast.daily.data.map((item) => {
+                hours++;
+                if (hours > 5) {
+                    return "";
+                }
+                return <div className="forecast-card p-md-3" key={item.time}>
+                    <div>{days[new Date((item.time * 1000)).getDay()]}</div>
+                    <div className={"weather-icon"}>
+                        <Skycons
+                            color='white'
+                            icon={item.icon.replace(/-/g, "_").toUpperCase()}
+                            autoplay={true}
+                        />
+                    </div>
+                    <div>{parseInt((item.temperatureHigh- 32) / 1.8)}&deg;</div>
+                    <div>{parseInt((item.temperatureLow - 32) / 1.8)}&deg;</div>
+                    <div className={"rain-drop"}><img src={RainDrop} alt="rain_drop"/>
+                        {parseInt(item.precipProbability * 100)}%
+                    </div>
+                </div>
+            });
+        }
+
+
         return (
             <div className="forecast">
                 <div className="slide-dots">
@@ -54,134 +110,10 @@ class Forecast extends Component {
                 </div>
                 <div className="forecast-wrapper" onMouseDown={this.mouseDown}>
                     <div className="forecast-hour">
-                        <div className="forecast-card p-md-3">
-                            <div>18:00 1</div>
-                            <div className={"weather-icon"}>
-                                <Skycons
-                                    color='white'
-                                    icon='RAIN'
-                                    autoplay={true}
-                                />
-                            </div>
-                            <div>3&deg;</div>
-                            <div className={"rain-drop"}><img src={RainDrop} alt="rain_drop"/> 7%</div>
-                        </div>
-                        <div className="forecast-card p-md-3">
-                            <div>18:00</div>
-                            <div className={"weather-icon"}>
-                                <Skycons
-                                    color='white'
-                                    icon='RAIN'
-                                    autoplay={true}
-                                />
-                            </div>
-                            <div>3&deg;</div>
-                            <div className={"rain-drop"}><img src={RainDrop} alt="rain_drop"/> 7%</div>
-                        </div>
-                        <div className="forecast-card p-md-3">
-                            <div>18:00</div>
-                            <div className={"weather-icon"}>
-                                <Skycons
-                                    color='white'
-                                    icon='RAIN'
-                                    autoplay={true}
-                                />
-                            </div>
-                            <div>3&deg;</div>
-                            <div className={"rain-drop"}><img src={RainDrop} alt="rain_drop"/> 7%</div>
-                        </div>
-                        <div className="forecast-card p-md-3">
-                            <div>18:00</div>
-                            <div className={"weather-icon"}>
-                                <Skycons
-                                    color='white'
-                                    icon='RAIN'
-                                    autoplay={true}
-                                />
-                            </div>
-                            <div>3&deg;</div>
-                            <div className={"rain-drop"}><img src={RainDrop} alt="rain_drop"/> 7%</div>
-                        </div>
-                        <div className="forecast-card p-md-3">
-                            <div>18:00</div>
-                            <div className={"weather-icon"}>
-                                <Skycons
-                                    color='white'
-                                    icon='RAIN'
-                                    autoplay={true}
-                                />
-                            </div>
-                            <div>3&deg;</div>
-                            <div className={"rain-drop"}><img src={RainDrop} alt="rain_drop"/> 7%</div>
-                        </div>
+                        {Object.keys(this.props.forecast).length > 0 && hourForecast}
                     </div>
                     <div className="forecast-day">
-                        <div className="forecast-card p-md-3">
-                            <div>Mon</div>
-                            <div className={"weather-icon"}>
-                                <Skycons
-                                    color='white'
-                                    icon='RAIN'
-                                    autoplay={true}
-                                />
-                            </div>
-                            <div>7&deg;</div>
-                            <div>3&deg;</div>
-                            <div className={"rain-drop"}><img src={RainDrop} alt="rain_drop"/> 87%</div>
-                        </div>
-                        <div className="forecast-card p-md-3">
-                            <div>Mon</div>
-                            <div className={"weather-icon"}>
-                                <Skycons
-                                    color='white'
-                                    icon='RAIN'
-                                    autoplay={true}
-                                />
-                            </div>
-                            <div>7&deg;</div>
-                            <div>3&deg;</div>
-                            <div className={"rain-drop"}><img src={RainDrop} alt="rain_drop"/> 87%</div>
-                        </div>
-                        <div className="forecast-card p-md-3">
-                            <div>Mon</div>
-                            <div className={"weather-icon"}>
-                                <Skycons
-                                    color='white'
-                                    icon='RAIN'
-                                    autoplay={true}
-                                />
-                            </div>
-                            <div>7&deg;</div>
-                            <div>3&deg;</div>
-                            <div className={"rain-drop"}><img src={RainDrop} alt="rain_drop"/> 87%</div>
-                        </div>
-                        <div className="forecast-card p-md-3">
-                            <div>Mon</div>
-                            <div className={"weather-icon"}>
-                                <Skycons
-                                    color='white'
-                                    icon='RAIN'
-                                    autoplay={true}
-                                />
-                            </div>
-                            <div>7&deg;</div>
-                            <div>3&deg;</div>
-                            <div className={"rain-drop"}><img src={RainDrop} alt="rain_drop"/> 87%</div>
-                        </div>
-                        <div className="forecast-card p-md-3">
-                            <div>Mon</div>
-                            <div className={"weather-icon"}>
-                                <Skycons
-                                    color='white'
-                                    icon='RAIN'
-                                    autoplay={true}
-                                />
-                            </div>
-                            <div>7&deg;</div>
-                            <div>3&deg;</div>
-                            <div className={"rain-drop"}><img src={RainDrop} alt="rain_drop"/> 87%</div>
-                        </div>
-
+                        {Object.keys(this.props.forecast).length > 0 && dayForecast}
                     </div>
                 </div>
             </div>
@@ -189,6 +121,9 @@ class Forecast extends Component {
     }
 }
 
-Forecast.propTypes = {};
+Forecast.propTypes = {
+    forecast: PropTypes.object.isRequired,
+
+};
 
 export default Forecast;

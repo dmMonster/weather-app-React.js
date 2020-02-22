@@ -44,3 +44,21 @@
   width: 1em;
   cursor: pointer;
 }
+
+.fade-in {
+  position: relative;
+  animation: fadein .5s;
+
+
+}
+
+@keyframes fadein { /* Firefox */
+  from {
+    top: -1000px;
+    opacity:0;
+  }
+  to {
+    top: 0;
+    opacity:1;
+  }
+}
