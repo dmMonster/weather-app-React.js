@@ -7,6 +7,20 @@
 
 .slide-dots {
   text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+.slide1-dot, .slide2-dot {
+  border-radius: 50%;
+  border: 2px solid white;
+  width: 15px;
+  height: 15px;
+  margin: 0 5px;
+}
+
+.selected {
+  background-color: white;
 }
 
 .forecast-wrapper {

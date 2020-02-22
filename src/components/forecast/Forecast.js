@@ -21,7 +21,6 @@ class Forecast extends Component {
     mouseUp = () => {
         document.querySelector(".forecast-hour").classList.add("forecast-anim");
         let forecastHourMargin = parseInt(document.querySelector(".forecast-hour").style.marginLeft);
-        console.log(forecastHourMargin);
         if (forecastHourMargin > -30 || (forecastHourMargin > -80 && this.state.currentSlide === 1)) {
             this.setSlideMargin(0);
             this.setState({currentSlide: 0});
@@ -50,7 +49,8 @@ class Forecast extends Component {
         return (
             <div className="forecast">
                 <div className="slide-dots">
-                    <span>*</span><span>*</span>
+                    <div className={"slide1-dot" + (!this.state.currentSlide ? " selected" : "")}> </div>
+                    <div className={"slide2-dot" + (this.state.currentSlide ? " selected" : "")}> </div>
                 </div>
                 <div className="forecast-wrapper" onMouseDown={this.mouseDown}>
                     <div className="forecast-hour">
