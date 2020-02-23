@@ -26,6 +26,10 @@
 .forecast-wrapper {
   position: relative;
   display: flex;
+  margin-left: 28%;
+  margin-right: 22%;
+  overflow: hidden;
+  cursor: grab;
 
   @media only screen and(max-width: 1199px) {
     margin-left: 20%;
@@ -39,17 +43,16 @@
 
   @media only screen and(max-width: 520px) {
     margin-left: 10%;
-    margin-right: 10%;
+    margin-right: 0%;
   }
   @media only screen and(max-width: 400px) {
-    margin-left: 2%;
-    margin-right: 2%;
-
+    margin-left: 1%;
+    margin-right: 1%;
   }
-  margin-left: 25%;
-  margin-right: 25%;
-  overflow: hidden;
-  cursor: grab;
+  @media only screen and(max-width: 350px) {
+    margin-left: 0;
+    margin-right: 0;
+  }
 }
 
 .forecast-day, .forecast-hour {
@@ -67,19 +70,20 @@
   }
 
   @media only screen and(max-width: 992px) {
-    padding-left: 10%;
+    padding-left: 2%;
   }
 
   @media only screen and (max-width: 768px) {
 
   }
   @media only screen and(max-width: 520px) {
-
-    padding-left: 15%
+    padding-left: 10%
 
   }
   @media only screen and(max-width: 400px) {
-
+    padding-left: 5%;
+  }
+  @media only screen and(max-width: 350px) {
     padding-left: 0;
   }
 }
@@ -90,11 +94,14 @@
 
 .forecast-card {
   text-align: center;
-
   div {
     padding: 0 0 2em 0;
     @media (max-width: 520px) {
       padding: 0 0 1em 0;
+    }
+    @media screen and (max-width: 350px){
+      font-size: 14px;
+      margin-left: 1px;
     }
   }
 
@@ -107,6 +114,10 @@
   border-right: 1px solid hsla(0, 0%, 100%, .25);
 }
 
+.forecast-card:last-child > div {
+  border: none;
+}
+
 .weather-icon {
   min-width: 4em;
   min-height: 3em;
@@ -116,7 +127,6 @@
     width: 4em;
     height: 2em;
   }
-
 }
 
 .rain-drop {
