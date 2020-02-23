@@ -27,7 +27,6 @@ class App extends Component {
 
     componentDidMount() {
         this.getIpLocalization();
-        this.getForecast();
         this.getGeolocation();
     }
 
@@ -83,9 +82,8 @@ class App extends Component {
                             latitude: res.lat
                         },
                         city: res.city
-                    }, () => {
-                        this.setState({isLoaded: true});
-                    });
+                    }, this.getForecast
+                    );
                 },
                 (error) => {
                     this.setState({
