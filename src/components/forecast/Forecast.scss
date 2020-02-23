@@ -1,0 +1,138 @@
+.forecast {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.slide-dots {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+.slide1-dot, .slide2-dot {
+  border-radius: 50%;
+  border: 2px solid white;
+  width: 15px;
+  height: 15px;
+  margin: 0 5px;
+}
+
+.selected {
+  background-color: white;
+}
+
+.forecast-wrapper {
+  position: relative;
+  display: flex;
+  margin-left: 28%;
+  margin-right: 22%;
+  overflow: hidden;
+  cursor: grab;
+
+  @media only screen and(max-width: 1199px) {
+    margin-left: 20%;
+    margin-right: 20%;
+  }
+
+  @media only screen and(max-width: 992px) {
+    margin-left: 14%;
+    margin-right: 14%;
+  }
+
+  @media only screen and(max-width: 520px) {
+    margin-left: 10%;
+    margin-right: 0%;
+  }
+  @media only screen and(max-width: 400px) {
+    margin-left: 1%;
+    margin-right: 1%;
+  }
+  @media only screen and(max-width: 350px) {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+.forecast-day, .forecast-hour {
+  display: flex;
+  flex-wrap: nowrap;
+  max-height: 100%;
+  margin-bottom: 1em;
+}
+
+.forecast-day {
+  padding-left: 15%;
+  margin-left: 20%;
+  @media only screen and(max-width: 1199px) {
+
+  }
+
+  @media only screen and(max-width: 992px) {
+    padding-left: 2%;
+  }
+
+  @media only screen and (max-width: 768px) {
+
+  }
+  @media only screen and(max-width: 520px) {
+    padding-left: 10%
+
+  }
+  @media only screen and(max-width: 400px) {
+    padding-left: 5%;
+  }
+  @media only screen and(max-width: 350px) {
+    padding-left: 0;
+  }
+}
+
+.forecast-anim {
+  transition: margin-left .33s;
+}
+
+.forecast-card {
+  text-align: center;
+  div {
+    padding: 0 0 2em 0;
+    @media (max-width: 520px) {
+      padding: 0 0 1em 0;
+    }
+    @media screen and (max-width: 350px){
+      font-size: 14px;
+      margin-left: 1px;
+    }
+  }
+
+  div:last-child {
+    font-weight: bold;
+  }
+}
+
+.forecast-card > div {
+  border-right: 1px solid hsla(0, 0%, 100%, .25);
+}
+
+.forecast-card:last-child > div {
+  border: none;
+}
+
+.weather-icon {
+  min-width: 4em;
+  min-height: 3em;
+  max-height: 4em;
+  max-width: 3em;
+  @media (max-width: 520px) {
+    width: 4em;
+    height: 2em;
+  }
+}
+
+.rain-drop {
+  img {
+    width: 1em;
+    height: 1em;
+    filter: invert(1);
+  }
+}
