@@ -77,10 +77,10 @@ class Forecast extends Component {
         let dayForecast = "";
         let days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
         if (this.props.forecast.hasOwnProperty("daily")) {
-            let hours = 0;
+            let maxDay = 0;
             dayForecast = this.props.forecast.daily.data.map((item) => {
-                hours++;
-                if (hours > 5) {
+                maxDay++;
+                if (maxDay > 5) {
                     return "";
                 }
                 return <div className="forecast-card p-md-3" key={item.time}>
