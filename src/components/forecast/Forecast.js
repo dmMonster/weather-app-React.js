@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, createRef} from 'react';
 import './Forecast.scss';
 import Skycons from 'react-skycons'
 import RainDrop from '../../icons/rain-drop.png';
@@ -10,15 +10,18 @@ class Forecast extends Component {
         super(props);
         this.state = {
             currentSlide: 0, //0 -forecast hour 1-forecast day
+            mouseDown: false
         };
 
         this.touchX = 0;
+
+        this.forecastHourRef = createRef();
     }
 
     mouseDown = () => {
         document.addEventListener("mousemove", this.mouseSpy);
         document.addEventListener("mouseup", this.endSlideChang);
-        document.querySelector(".forecast-hour").classList.remove("forecast-anim");
+        this.forecastHourRef.current.classList.remove("forecast-anim");
     };
 
     touchStart = (e) => {
@@ -28,8 +31,8 @@ class Forecast extends Component {
     };
 
     endSlideChang = () => {
-        document.querySelector(".forecast-hour").classList.add("forecast-anim");
-        let forecastHourMargin = parseInt(document.querySelector(".forecast-hour").style.marginLeft);
+        this.forecastHourRef.current.classList.add("forecast-anim");
+        let forecastHourMargin = parseInt(this.forecastHourRef.current.style.marginLeft);
         if (forecastHourMargin > -30 || (forecastHourMargin > -80 && this.state.currentSlide === 1)) {
             this.setSlideMargin(0);
             this.setState({currentSlide: 0});
@@ -43,7 +46,7 @@ class Forecast extends Component {
 
     mouseSpy = (e) => {
         let marginLeft;
-        let forecastHourSlide = document.querySelector(".forecast-hour").style;
+        let forecastHourSlide = this.forecastHourRef.current.style;
         forecastHourSlide.marginLeft ? marginLeft = forecastHourSlide.marginLeft : marginLeft = 0;
         if (parseInt(marginLeft) < 40 && parseInt(marginLeft) > -140) {
             forecastHourSlide.marginLeft = parseInt(marginLeft) + parseInt(e.movementX / 3) + "%";
@@ -53,7 +56,7 @@ class Forecast extends Component {
 
     touchSpy = (e) => {
         let marginLeft;
-        let forecastHourSlide = document.querySelector(".forecast-hour").style;
+        let forecastHourSlide = this.forecastHourRef.current.style;
         forecastHourSlide.marginLeft ? marginLeft = forecastHourSlide.marginLeft : marginLeft = 0;
         if (parseInt(marginLeft) < 40 && parseInt(marginLeft) > -140) {
             forecastHourSlide.marginLeft = parseInt(marginLeft) + parseFloat((e.touches[0].clientX - this.touchX)/2) + "%";
@@ -63,7 +66,7 @@ class Forecast extends Component {
     };
 
     setSlideMargin = (marginL) => {
-        let forecastHourSlide = document.querySelector(".forecast-hour");
+        let forecastHourSlide = this.forecastHourRef.current;
         forecastHourSlide.style.marginLeft = parseInt(marginL) + "%";
     };
 
@@ -130,7 +133,7 @@ class Forecast extends Component {
                     <div className={"slide2-dot" + (this.state.currentSlide ? " selected" : "")}></div>
                 </div>
                 <div className="forecast-wrapper" onMouseDown={this.mouseDown} onTouchStart={this.touchStart}>
-                    <div className="forecast-hour" style={{"marginLeft": 0}}>
+                    <div className="forecast-hour" ref={this.forecastHourRef} style={{"marginLeft": 0}}>
                         {Object.keys(this.props.forecast).length > 0 && hourForecast}
                     </div>
                     <div className="forecast-day">
